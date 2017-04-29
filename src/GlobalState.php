@@ -4,7 +4,12 @@ namespace WyriHaximus\React\Inspector\F42;
 
 final class GlobalState
 {
-    static protected $state = [];
+    const DEFAULT_STATE = [
+        'read'  => 0,
+        'write' => 0,
+    ];
+
+    static protected $state = self::DEFAULT_STATE;
 
     public static function get(): array
     {
@@ -13,7 +18,9 @@ final class GlobalState
 
     public static function reset()
     {
-        self::$state = [];
+        foreach(self::$state as $index => $value) {
+            self::$state[$index] = 0;
+        }
     }
 
     public static function set(string $key, int $value)
